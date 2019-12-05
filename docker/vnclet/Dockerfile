@@ -1,8 +1,7 @@
-FROM registry.cn-hangzhou.aliyuncs.com/cloudplus-lab/kubeext-vnc-base:v1.0
+FROM registry.cn-hangzhou.aliyuncs.com/cloudplus-lab/kubeext-vnc-base:v1.0-arm8
 
 ADD . /root/VM-terminal/
 
 WORKDIR /root/VM-terminal
 
-RUN chmod -R 777 utils
 CMD bash start.sh
