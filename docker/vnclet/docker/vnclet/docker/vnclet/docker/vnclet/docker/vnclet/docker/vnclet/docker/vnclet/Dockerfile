@@ -4,5 +4,4 @@ ADD . /root/VM-terminal/
 
 WORKDIR /root/VM-terminal
 
-RUN chmod -R 777 utils
 CMD bash start.sh
