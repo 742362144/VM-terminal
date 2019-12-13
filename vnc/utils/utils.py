@@ -169,7 +169,7 @@ def singleton(pid_filename):
 
             try:
                 pidfile.close()
-            except IOError, err:
+            except IOError as err:
                 if err.errno != 9:
                     return
             os.remove(pid_filename)
@@ -702,7 +702,7 @@ class CDaemon:
             pid = os.fork()
             if pid > 0:
                 sys.exit(0)
-        except OSError, e:
+        except OSError as e:
             sys.stderr.write('fork #1 failed: %d (%s)\n' % (e.errno, e.strerror))
             sys.exit(1)
  
@@ -714,7 +714,7 @@ class CDaemon:
             pid = os.fork()
             if pid > 0:
                 sys.exit(0)
-        except OSError, e:
+        except OSError as e:
             sys.stderr.write('fork #2 failed: %d (%s)\n' % (e.errno, e.strerror))
             sys.exit(1)
  
@@ -738,7 +738,7 @@ class CDaemon:
         signal.signal(signal.SIGINT, sig_handler)
  
         if self.verbose >= 1:
-            print 'daemon process started ...'
+            print('daemon process started ...')
  
         atexit.register(self.del_pid)
         pid = str(os.getpid())
@@ -761,7 +761,7 @@ class CDaemon:
  
     def start(self, *args, **kwargs):
         if self.verbose >= 1:
-            print 'ready to starting ......'
+            print('ready to starting ......')
         #check for a pid file to see if the daemon already runs
         pid = self.get_pid()
         if pid:
@@ -774,7 +774,7 @@ class CDaemon:
  
     def stop(self):
         if self.verbose >= 1:
-            print 'stopping ...'
+            print('stopping ...')
         pid = self.get_pid()
         if not pid:
             msg = 'pid file [%s] does not exist. Not running?\n' % self.pidfile
@@ -791,17 +791,17 @@ class CDaemon:
                 i = i + 1
                 if i % 10 == 0:
                     os.kill(pid, signal.SIGHUP)
-        except OSError, err:
+        except OSError as err:
             err = str(err)
             if err.find('No such process') > 0:
                 if os.path.exists(self.pidfile):
                     os.remove(self.pidfile)
             else:
-                print str(err)
+                print(str(err))
                 sys.exit(1)
             if self.verbose >= 1:
-                print 'Stopped!'
- 
+                print('Stopped!')
+
     def restart(self, *args, **kwargs):
         self.stop()
         self.start(*args, **kwargs)
@@ -813,7 +813,7 @@ class CDaemon:
  
     def run(self, *args, **kwargs):
         'NOTE: override the method in subclass'
-        print 'base class run()'
+        print('base class run()')
 
 if __name__ == '__main__':
     print(get_l3_network_info('sw12'))

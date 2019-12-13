@@ -37,7 +37,7 @@ HOSTNAME = socket.gethostname()
 logger = logger.set_logger(os.path.basename(__file__), '/var/log/vnclet.log')
 
 class ClientDaemon(CDaemon):
-    def __init__(self, name, save_path, stdin=os.devnull, stdout=os.devnull, stderr=os.devnull, home_dir='.', umask=022, verbose=1):
+    def __init__(self, name, save_path, stdin=os.devnull, stdout=os.devnull, stderr=os.devnull, home_dir='.', umask=0o22, verbose=1):
         CDaemon.__init__(self, save_path, stdin, stdout, stderr, home_dir, umask, verbose)
         self.name = name
  
@@ -67,7 +67,7 @@ class ClientDaemon(CDaemon):
 def daemonize():
     help_msg = 'Usage: python %s <start|stop|restart|status>' % sys.argv[0]
     if len(sys.argv) != 2:
-        print help_msg
+        print(help_msg)
         sys.exit(1)
     p_name = 'virtlet'
     pid_fn = '/var/run/vnc_daemon.pid'
@@ -84,12 +84,12 @@ def daemonize():
     elif sys.argv[1] == 'status':
         alive = cD.is_running()
         if alive:
-            print 'process [%s] is running ......' % cD.get_pid()
+            print('process [%s] is running ......' % cD.get_pid())
         else:
-            print 'daemon process [%s] stopped' %cD.name
+            print('daemon process [%s] stopped' %cD.name)
     else:
-        print 'invalid argument!'
-        print help_msg    
+        print('invalid argument!')
+        print(help_msg)
  
  
 if __name__ == '__main__':

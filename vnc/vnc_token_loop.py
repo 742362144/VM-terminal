@@ -34,7 +34,6 @@ class parser(ConfigParser.ConfigParser):
         return optionstr
 
 cfg = "%s/default.cfg" % os.path.dirname(os.path.realpath(__file__))
-print cfg
 config_raw = parser()
 config_raw.read(cfg)
 
@@ -51,9 +50,7 @@ LOG = '/var/log/vnclet.log'
 logger = logger.set_logger(os.path.basename(__file__), LOG)
 
 
-# TOKEN_PATH = os.getenv('TOKEN_PATH')
-
-TOKEN_PATH = '/root/VM-terminal/utils/websockify/token/token.conf'
+TOKEN_PATH = os.getenv('TOKEN_PATH')
 
 def main():
     logger.debug("---------------------------------------------------------------------------------")
@@ -103,7 +100,7 @@ def get_all_node_ip(group=GROUP_VM, version=VERSION_VM, plural=PLURAL_VM):
     except Exception as e:
         print("Exception when calling get_all_node_ip: %s\n" % e)
 
-    print all_node_ip
+    print(all_node_ip)
     return all_node_ip
 
 # get all token every five seconds
@@ -123,7 +120,7 @@ def get_all_token(group=GROUP_VM, version=VERSION_VM, plural=PLURAL_VM):
                 if token['port'] != '-1':
                     all_token.append(token)
                     break
-        print all_token
+        print(all_token)
     except ApiException as e:
         print("Exception when calling CoreV1Api->list_node: %s\n" % e)
     except Exception as e:
@@ -148,7 +145,7 @@ def write_token_to_file():
                 if not os.path.isdir(file_dir):
                     os.makedirs(file_dir)
 
-                print result
+                print(result)
                 with open(TOKEN_PATH, "w") as f:
                     for linne in result:
                         f.write(linne)
