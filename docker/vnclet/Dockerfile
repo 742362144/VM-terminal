@@ -1,4 +1,4 @@
-FROM registry.cn-hangzhou.aliyuncs.com/cloudplus-lab/kubeext-vnc-base:v1.6.0-arm8
+FROM registry.cn-hangzhou.aliyuncs.com/cloudplus-lab/kubeext-vnc-base:v1.6.0
 
 ADD . /root/VM-terminal/
 
